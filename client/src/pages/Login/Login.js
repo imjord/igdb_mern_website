@@ -1,26 +1,70 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import image from "./games.png";
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 const Login = () => {
+  const navigate = useNavigate();
+  const [msg, setMsg] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    login();
+  };
+
+  const login = async () => {
+    try {
+      const res = await axios.post("http://localhost:3001/api/auth/login", {
+        username,
+        password,
+      });
+      console.log(res);
+      // set loggedIn to localStorage
+      localStorage.setItem("imjordLoggedIn", true);
+      // redirect to home page
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    // check if user is logged in
+    const loggedIn = localStorage.getItem("imjordLoggedIn");
+    if (loggedIn) {
+      navigate("/home");
+    }
+  }, []);
   return (
     <div className="login_container">
       <div className="login_left">
         <div className="left_wrapper">
           <h2>Imjord Games</h2>
           <h3>Sign in</h3>
-          <form>
-            <div class="input-container">
-              <input type="text" id="username" required />
-              <label for="username" class="placeholder">
+          <form onSubmit={handleSubmit}>
+            <div className="input-container">
+              <input
+                onChange={(e) => setUsername(e.target.value)}
+                type="text"
+                id="username"
+                required
+              />
+              <label htmlFor="username" className="placeholder">
                 Username
               </label>
             </div>
-            <div class="input-container">
-              <input type="password" id="password" required />
-              <label for="password" class="placeholder">
+            <div className="input-container">
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                id="password"
+                required
+              />
+              <label htmlFor="password" className="placeholder">
                 Password
               </label>
             </div>

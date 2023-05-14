@@ -8,6 +8,7 @@ import axios from "axios";
 const Login = () => {
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
+  const [error, setError] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -28,7 +29,8 @@ const Login = () => {
       // redirect to home page
       navigate("/home");
     } catch (error) {
-      console.error(error);
+      console.error(error.response.data.error);
+      setError(error.response.data.error);
     }
   };
 
@@ -44,7 +46,7 @@ const Login = () => {
       <div className="login_left">
         <div className="left_wrapper">
           <h2>Imjord Games</h2>
-          <h3>Sign in</h3>
+          {error ? <p className="error">{error}</p> : <h3>Sign in</h3>}
           <form onSubmit={handleSubmit}>
             <div className="input-container">
               <input

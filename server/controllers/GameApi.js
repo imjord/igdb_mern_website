@@ -21,6 +21,40 @@ const game_api_controller = {
         console.error("Error:", error);
       });
   },
+  get_genre(req, res) {
+    const response = fetch("https://api.igdb.com/v4/genres/", {
+      method: "POST",
+      headers: {
+        "Client-ID": process.env.client_id,
+        Authorization: process.env.secret_auth,
+      },
+      body: "fields *;",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  },
+  get_games_by_genre(req, res) {
+    const response = fetch("https://api.igdb.com/v4/games", {
+      method: "POST",
+      headers: {
+        "Client-ID": process.env.client_id,
+        Authorization: process.env.secret_auth,
+      },
+      body: `fields *; where genres = (${req.params.id}) & cover != null; sort updated_at desc; limit 3;`,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  },
 };
 
 module.exports = game_api_controller;

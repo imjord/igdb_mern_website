@@ -6,7 +6,10 @@ import { Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
+import Browse from "./pages/Browse/Browse";
+import GenrePage from "./pages/GenrePage/GenrePage";
 import NotFound from "./pages/NotFound/NotFound";
+
 // components
 import NavBar from "./Components/Navbar/NavBar";
 
@@ -27,6 +30,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/browse" element={<Browse />} />
+        <Route path="/browse/:id" element={<GenrePage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

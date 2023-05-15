@@ -1,19 +1,17 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Link } from "react-router-dom";
-import "./GenrePage.css";
 
-const GenrePage = () => {
+const Search = () => {
+  const { name } = useParams();
   const [games, setGames] = useState([]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(9);
-  const { id } = useParams();
-
-  const getGamesByGenre = async () => {
+  const getSearchedGames = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/api/games/browse/${id}`
+        `http://localhost:3001/api/games/search/${name}`
       );
       console.log(res.data);
       setGames(res.data);
@@ -23,8 +21,8 @@ const GenrePage = () => {
   };
 
   useEffect(() => {
-    getGamesByGenre();
-  }, [id]);
+    getSearchedGames();
+  }, [name]);
 
   // Pagination
   const totalGames = games.length;
@@ -39,13 +37,12 @@ const GenrePage = () => {
 
   return (
     <div className="genre-page">
-      <h1>Browse Genres</h1>
+      <h1>Search {name}</h1>
       <div className="game-list">
         {currentGames.map((game) => (
           <Link id="Link" to={`/games/${game.id}`}>
             <div className="game-card" key={game.id}>
               <h2>{game.name}</h2>
-              <p>{game.description}</p>
             </div>
           </Link>
         ))}
@@ -65,4 +62,4 @@ const GenrePage = () => {
   );
 };
 
-export default GenrePage;
+export default Search;

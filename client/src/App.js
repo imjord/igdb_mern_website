@@ -8,7 +8,9 @@ import Register from "./pages/Register/Register";
 import Home from "./pages/Home/Home";
 import Browse from "./pages/Browse/Browse";
 import GenrePage from "./pages/GenrePage/GenrePage";
+import Game from "./pages/Game/Game";
 import NotFound from "./pages/NotFound/NotFound";
+import Search from "./pages/Search/Search";
 
 // components
 import NavBar from "./Components/Navbar/NavBar";
@@ -31,7 +33,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
         <Route path="/browse" element={<Browse />} />
+        <Route path="/games/:id" element={<Game />} />
         <Route path="/browse/:id" element={<GenrePage />} />
+        <Route path="/search/:name" element={<Search />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

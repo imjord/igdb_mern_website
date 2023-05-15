@@ -1,0 +1,32 @@
+.single-game-container {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.single-game-card {
+  padding: 10px;
+  width: 50%;
+}
+
+.single-game-card h2 {
+  font-size: 30px;
+}
+
+.single-game-card p {
+  font-size: 20px;
+}
+.single-game-card h3 {
+  font-size: 30px;
+}
+
+.screenshots {
+}
+
+.single-game-card img {
+  width: 25%;
+  margin: 5px;
+  height: 300px;
+  object-fit: cover;
+}

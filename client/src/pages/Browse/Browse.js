@@ -27,7 +27,7 @@ const Browse = () => {
           <div className="genre_wrapper" key={genre.id}>
             <div className="genre">
               <div>
-                <Link to={`/browse/${genre.id}`}>
+                <Link id="Link" to={`/browse/${genre.id}`}>
                   <h3>{genre.name}</h3>
                 </Link>
               </div>

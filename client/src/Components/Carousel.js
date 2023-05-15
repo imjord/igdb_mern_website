@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./Carousel.css";
+import { Link } from "react-router-dom";
 
 const Carousel = (props) => {
   const { games } = props;
@@ -15,13 +16,16 @@ const Carousel = (props) => {
       <div
         className="trending_left_content"
         style={{
-          backgroundImage: `url(${game.cover.url})`,
+          backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "contain",
           backgroundPosition: "center",
         }}
       >
         <h2>{game.name}</h2>
+        <Link id="Link" to={`/games/${game.id}`}>
+          <button className="trending_button">View Game</button>
+        </Link>
       </div>
     );
   };

@@ -13,7 +13,10 @@ const GenrePage = () => {
   const getGamesByGenre = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/api/games/browse/${id}`
+        `http://localhost:3001/api/games/browse/${id}`,
+        {
+          withCredentials: true,
+        }
       );
       console.log(res.data);
       setGames(res.data);
@@ -40,16 +43,25 @@ const GenrePage = () => {
   return (
     <div className="genre-page">
       <h1>Browse Genres</h1>
-      <div className="game-list">
+      <div className="search_container">
         {currentGames.map((game) => (
-          <Link id="Link" to={`/games/${game.id}`}>
-            <div className="game-card" key={game.id}>
+          <Link to={`/games/${game.id}`}>
+            <div className="search_card" key={game.id}>
               <h2>{game.name}</h2>
-              <p>{game.description}</p>
+              <p>poop</p>
+              <span></span>
+              <div
+                className="pic"
+                style={{
+                  backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
+                }}
+              ></div>
+              <button></button>
             </div>
           </Link>
         ))}
       </div>
+
       <div className="pagination">
         {Array.from({ length: totalPages }).map((_, index) => (
           <button

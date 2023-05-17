@@ -2,6 +2,14 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 
 const auth_controller = {
+  auth(req, res, next) {
+    if (req.session.user) {
+      next();
+    } else {
+      res.status(401).json({ message: "Unauthorized" });
+    }
+  },
+
   // login
   async login(req, res) {
     try {

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import "./Search.css";
 
 const Search = () => {
   const { name } = useParams();
@@ -11,7 +12,10 @@ const Search = () => {
   const getSearchedGames = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:3001/api/games/search/${name}`
+        `http://localhost:3001/api/games/search/${name}`,
+        {
+          withCredentials: true,
+        }
       );
       console.log(res.data);
       setGames(res.data);
@@ -36,17 +40,26 @@ const Search = () => {
   const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
 
   return (
-    <div className="genre-page">
-      <h1>Search {name}</h1>
-      <div className="game-list">
+    <div>
+      <div className="search_container">
         {currentGames.map((game) => (
-          <Link id="Link" to={`/games/${game.id}`}>
-            <div className="game-card" key={game.id}>
+          <Link to={`/games/${game.id}`}>
+            <div className="search_card">
               <h2>{game.name}</h2>
+              <p>poop</p>
+              <span></span>
+              <div
+                className="pic"
+                style={{
+                  backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
+                }}
+              ></div>
+              <button></button>
             </div>
           </Link>
         ))}
       </div>
+
       <div className="pagination">
         {Array.from({ length: totalPages }).map((_, index) => (
           <button

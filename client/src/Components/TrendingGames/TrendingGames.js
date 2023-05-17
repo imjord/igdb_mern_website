@@ -11,7 +11,9 @@ const TrendingGames = () => {
   const getTrendingGames = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:3001/api/games/trending");
+      const res = await axios.get("http://localhost:3001/api/games/trending", {
+        withCredentials: true,
+      });
       console.log(res.data);
       setLoading(false);
       setTrendingGames(res.data);

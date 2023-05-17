@@ -7,7 +7,9 @@ const Browse = () => {
 
   const getGenres = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/games/browse");
+      const res = await axios.get("http://localhost:3001/api/games/browse", {
+        withCredentials: true,
+      });
       console.log(res.data);
       setGenres(res.data);
     } catch (error) {

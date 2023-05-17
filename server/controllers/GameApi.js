@@ -45,7 +45,7 @@ const game_api_controller = {
         "Client-ID": process.env.client_id,
         Authorization: process.env.secret_auth,
       },
-      body: `fields *; where genres = (${req.params.id}) & cover != null & rating > 81; sort first_release_date desc; limit 30; offset 0;`,
+      body: `fields name, storyline, cover.*; where genres = (${req.params.id}) & cover != null & rating > 81; sort first_release_date desc; limit 30; offset 0;`,
     })
       .then((response) => response.json())
       .then((data) => {
@@ -80,7 +80,7 @@ const game_api_controller = {
         "Client-ID": process.env.client_id,
         Authorization: process.env.secret_auth,
       },
-      body: `search "${req.params.name}"; fields name, cover.url; where cover != null; limit 350;`,
+      body: `search "${req.params.name}"; fields name, storyline, cover.*; where cover != null; limit 350;`,
     })
       .then((response) => response.json())
       .then((data) => {

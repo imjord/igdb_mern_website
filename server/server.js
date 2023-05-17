@@ -5,8 +5,11 @@ const db = require("./config/connection");
 const routes = require("./routes/index");
 const cors = require("cors");
 const session = require("express-session");
-
-app.use(cors());
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true, // Enable sending cookies from the frontend
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -17,6 +20,11 @@ app.use(
   })
 );
 app.use("/api", routes);
+// Error handler middleware
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: "Server error" });
+});
 
 db.once("open", () => {
   console.log("MongoDB working");

@@ -21,12 +21,26 @@
   font-size: 30px;
 }
 
-.screenshots {
-}
-
 .single-game-card img {
   width: 25%;
   margin: 5px;
   height: 300px;
   object-fit: cover;
+}
+
+.game_title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.game_title button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }

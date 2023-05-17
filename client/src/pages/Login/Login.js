@@ -19,10 +19,16 @@ const Login = () => {
 
   const login = async () => {
     try {
-      const res = await axios.post("http://localhost:3001/api/auth/login", {
-        username,
-        password,
-      });
+      const res = await axios.post(
+        "http://localhost:3001/api/auth/login",
+        {
+          username,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
       console.log(res);
       // set loggedIn to localStorage
       localStorage.setItem("imjordLoggedIn", true);

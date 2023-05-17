@@ -7,10 +7,24 @@ const Game = () => {
   const [game, setGame] = useState({});
   const { id } = useParams();
 
+  const addGameToLibrary = async () => {
+    try {
+      const res = await axios.post(
+        `http://localhost:3001/api/users/library/${id}`,
+        { withCredentials: true }
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const getGame = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/games/${id}`);
+        const res = await axios.get(`http://localhost:3001/api/games/${id}`, {
+          withCredentials: true,
+        });
         console.log(res.data);
         setGame(res.data[0] || {});
       } catch (error) {
@@ -28,7 +42,10 @@ const Game = () => {
   return (
     <div className="single-game-container">
       <div className="single-game-card">
-        <h2>{game.name || "N/A"}</h2>
+        <div className="game_title">
+          <h2>{game.name || "N/A"}</h2>
+          <button onClick={() => addGameToLibrary()}>add to library</button>
+        </div>
         <p>{game.summary || "N/A"}</p>
         <div className="screenshots">
           <h3>Screenshots</h3>

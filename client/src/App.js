@@ -10,6 +10,7 @@ import Browse from "./pages/Browse/Browse";
 import GenrePage from "./pages/GenrePage/GenrePage";
 import Game from "./pages/Game/Game";
 import NotFound from "./pages/NotFound/NotFound";
+import Library from "./pages/Library/Library";
 import Search from "./pages/Search/Search";
 
 // components
@@ -36,6 +37,7 @@ function App() {
         <Route path="/games/:id" element={<Game />} />
         <Route path="/browse/:id" element={<GenrePage />} />
         <Route path="/search/:name" element={<Search />} />
+        <Route path="/library" element={<Library />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

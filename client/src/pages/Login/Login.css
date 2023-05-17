@@ -40,7 +40,7 @@
 
 /* form styles */
 
-form {
+.left_wrapper form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -52,7 +52,7 @@ form {
   width: 70%;
 }
 
-input {
+.input-container input {
   width: 100%;
   padding: 25px;
   background-color: gainsboro;

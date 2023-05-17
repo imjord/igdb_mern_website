@@ -17,7 +17,7 @@ const NavBar = () => {
   return (
     <nav>
       <div className="logo">
-        <h1>Imjord Games</h1>
+        <h1> Imjord Games</h1>
       </div>
       <div className="explore_container">
         <ul>
@@ -30,7 +30,7 @@ const NavBar = () => {
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Search Games"
               />
-              <button type="submit">Search</button>
+              <button type="submit"></button>
             </form>
           </li>
           <Link id="Link" to="/home">
@@ -44,7 +44,11 @@ const NavBar = () => {
       </div>
       <div className="profile_container">
         <ul>
-          <li>Library</li>
+          <Link to="/library">
+            {" "}
+            <li>Library</li>
+          </Link>
+
           <li>Profile</li>
           <li>Logout</li>
         </ul>

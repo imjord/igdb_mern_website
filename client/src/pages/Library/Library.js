@@ -8,9 +8,12 @@ const Library = () => {
 
   const getMyGames = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/users/library", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        "http://localhost:3001/api/users/library/all",
+        {
+          withCredentials: true,
+        }
+      );
       console.log(res);
     } catch (error) {
       console.error(error);

@@ -10,7 +10,8 @@ const Game = () => {
   const addGameToLibrary = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:3001/api/users/library/${id}`,
+        `http://localhost:3001/api/users/library`,
+        { gameId: id },
         { withCredentials: true }
       );
       console.log(res.data);

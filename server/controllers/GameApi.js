@@ -5,7 +5,7 @@ const game_api_controller = {
   get_trending_games(req, res) {
     // make a post request to https://api.igdb.com/v4/games
     // with the following body: fields name, cover.url; where genres = (7) & cover != null; limit 20;
-    const response = fetch("https://api.igdb.com/v4/games", {
+    fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {
         "Client-ID": process.env.client_id,
@@ -22,7 +22,7 @@ const game_api_controller = {
       });
   },
   get_genre(req, res) {
-    const response = fetch("https://api.igdb.com/v4/genres/", {
+    fetch("https://api.igdb.com/v4/genres/", {
       method: "POST",
       headers: {
         "Client-ID": process.env.client_id,
@@ -39,7 +39,7 @@ const game_api_controller = {
       });
   },
   get_games_by_genre(req, res) {
-    const response = fetch("https://api.igdb.com/v4/games", {
+    fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {
         "Client-ID": process.env.client_id,
@@ -56,7 +56,7 @@ const game_api_controller = {
       });
   },
   get_game(req, res) {
-    const response = fetch("https://api.igdb.com/v4/games", {
+    fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {
         "Client-ID": process.env.client_id,
@@ -74,7 +74,7 @@ const game_api_controller = {
   },
 
   search_games_by_name(req, res) {
-    const response = fetch("https://api.igdb.com/v4/games", {
+    fetch("https://api.igdb.com/v4/games", {
       method: "POST",
       headers: {
         "Client-ID": process.env.client_id,

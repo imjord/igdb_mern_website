@@ -11,7 +11,11 @@ const Game = () => {
     try {
       const res = await axios.post(
         `http://localhost:3001/api/users/library`,
-        { gameId: id },
+        {
+          name: game.name,
+          image_id: game.cover.image_id,
+          gameId: game.id,
+        },
         { withCredentials: true }
       );
       console.log(res.data);
@@ -53,7 +57,7 @@ const Game = () => {
           {game.screenshots && game.screenshots.length > 0 ? (
             game.screenshots.map((screenshot) => (
               <img
-                key={screenshot}
+                key={screenshot.id}
                 src={`https://images.igdb.com/igdb/image/upload/t_screenshot_med_2x/${screenshot.image_id}.jpg`}
                 alt="Screenshot"
               />
@@ -67,7 +71,7 @@ const Game = () => {
           <ul>
             {game.platforms && game.platforms.length > 0 ? (
               game.platforms.map((platform) => (
-                <li key={platform}>{`Platform ${platform.name}`}</li>
+                <li key={platform.id}>{`Platform ${platform.name}`}</li>
               ))
             ) : (
               <p>No platforms available yet</p>

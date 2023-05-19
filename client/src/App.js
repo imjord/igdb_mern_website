@@ -25,7 +25,7 @@ function App() {
     if (loggedIn) {
       setLoggedIn(true);
     }
-  }, []);
+  }, [loggedIn]);
   return (
     <>
       {loggedIn ? <NavBar /> : null}

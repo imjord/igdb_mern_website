@@ -1,8 +1,5 @@
 const Game = require("../models/Game");
 const User = require("../models/User");
-const dotenv = require("dotenv");
-const { fetchGameDetails } = require("../helpers/functions.js");
-dotenv.config();
 
 const game_controller = {
   // get user's game library
@@ -21,43 +18,43 @@ const game_controller = {
   // add game to library
   async add_to_library(req, res) {
     try {
-      const user = await User.findOneAndUpdate(
-        { username: req.session.user.username },
-        { $push: { library: req.body.gameId } },
-        { new: true }
-      );
+      const name = req.body.name;
+      const image_id = req.body.image_id;
+      const gameId = req.body.gameId;
+
+      // Find the user
+      const user = await User.findOne({
+        username: req.session.user.username,
+      }).populate("library");
 
       if (!user) {
-        return res.status(404).json({ message: "User not found" });
+        return res.status(404).send("User not found");
       }
 
-      res.json({ message: "Game added to library successfully" });
-    } catch (error) {
-      console.log(error);
-      res.status(500).send("Server error");
-    }
-  },
+      // Check if the game already exists in the user's library
+      const gameExists = user.library.some((game) => game.name === name);
 
-  async getAllGamesInUserLibrary(req, res) {
-    try {
-      const user = await User.findOne({ username: req.session.user.username })
-        .lean()
-        .exec();
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
+      if (gameExists) {
+        return res.status(400).json({ message: "Game already in library" });
       }
 
-      const library = user.library;
+      // Create a new game
+      const newGame = new Game({
+        name,
+        image_id,
+        gameId,
+      });
 
-      const gameDetailsPromises = library.map((gameId) =>
-        fetchGameDetails(gameId)
-      );
-      const gameDetails = await Promise.all(gameDetailsPromises);
+      const savedGame = await newGame.save();
 
-      res.json(gameDetails);
+      // Add the game to the user's library
+      user.library.push(savedGame._id);
+      await user.save();
+
+      res.json({ message: "Game added to library!!!" });
     } catch (error) {
       console.error(error);
-      res.status(500).send("Failed to fetch game details");
+      res.status(500).send("Server error");
     }
   },
 };

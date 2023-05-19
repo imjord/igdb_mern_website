@@ -62,7 +62,7 @@ const game_api_controller = {
         "Client-ID": process.env.client_id,
         Authorization: process.env.secret_auth,
       },
-      body: `fields name, summary, platforms.name, screenshots.*; where id = (${req.params.id}) & screenshots != null; `,
+      body: `fields name, summary, cover.*, platforms.name, screenshots.*; where id = (${req.params.id}) & screenshots != null; `,
     })
       .then((response) => response.json())
       .then((data) => {

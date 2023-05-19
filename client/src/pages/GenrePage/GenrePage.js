@@ -45,10 +45,10 @@ const GenrePage = () => {
       <h1>Browse Genres</h1>
       <div className="search_container">
         {currentGames.map((game) => (
-          <Link to={`/games/${game.id}`}>
-            <div className="search_card" key={game.id}>
+          <Link to={`/games/${game.id}`} key={game.id}>
+            <div className="search_card">
               <h2>{game.name}</h2>
-              <p>poop</p>
+              <p>Click to view</p>
               <span></span>
               <div
                 className="pic"

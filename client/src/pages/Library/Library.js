@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
-import "./Library.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "../GenrePage/GenrePage.css";
 
 const Library = () => {
   const [games, setGames] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [gamesPerPage] = useState(9);
+  const [user, setUser] = useState({});
 
   const getMyGames = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:3001/api/users/library/all",
-        {
-          withCredentials: true,
-        }
-      );
-      console.log(res);
+      const res = await axios.get("http://localhost:3001/api/users/library", {
+        withCredentials: true,
+      });
+      console.log(res.data);
+      setUser(res.data);
     } catch (error) {
       console.error(error);
     }
@@ -24,7 +25,57 @@ const Library = () => {
     getMyGames();
   }, []);
 
-  return <div>Library</div>;
+  // Pagination
+  const totalGames = user.library ? user.library.length : 0;
+  const totalPages = Math.ceil(totalGames / gamesPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Calculate the range of games to display on the current page
+  const indexOfLastGame = currentPage * gamesPerPage;
+  const indexOfFirstGame = indexOfLastGame - gamesPerPage;
+  const currentGames = user.library
+    ? user.library.slice(indexOfFirstGame, indexOfLastGame)
+    : [];
+
+  return (
+    <div className="genre-page">
+      <h1>{user.username} Library</h1>
+      <div className="search_container">
+        {currentGames.map((game) => (
+          <div>
+            <Link to={`/games/${game.gameId}`} key={game.gameId}>
+              <div className="search_card">
+                <h2>{game.name}</h2>
+                <p>Click to view</p>
+                <span></span>
+                <div
+                  className="pic"
+                  style={{
+                    backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.image_id}.jpg)`,
+                  }}
+                ></div>
+                <button></button>
+              </div>
+            </Link>
+            <button>Remove</button>
+          </div>
+        ))}
+      </div>
+
+      <div className="pagination">
+        {Array.from({ length: totalPages }).map((_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => paginate(index + 1)}
+            className={currentPage === index + 1 ? "active" : ""}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Library;

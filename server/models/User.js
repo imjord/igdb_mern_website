@@ -18,7 +18,12 @@ const user_schema = new Schema({
     required: true,
     minlength: 5,
   },
-  library: [Number],
+  library: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Game",
+    },
+  ],
 });
 
 const User = model("User", user_schema);

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import "./Game.css";
 
 const Game = () => {
   const [game, setGame] = useState({});
   const { id } = useParams();
+  const [unauthMsg, setUnauthMsg] = useState("");
 
   const addGameToLibrary = async () => {
     try {
@@ -34,6 +35,7 @@ const Game = () => {
         setGame(res.data[0] || {});
       } catch (error) {
         console.error(error);
+        setUnauthMsg(error.response.data.message);
       }
     };
 
@@ -46,39 +48,49 @@ const Game = () => {
 
   return (
     <div className="single-game-container">
-      <div className="single-game-card">
-        <div className="game_title">
-          <h2>{game.name || "N/A"}</h2>
-          <button onClick={() => addGameToLibrary()}>add to library</button>
+      {unauthMsg ? (
+        <div className="error_container">
+          <p className="error">
+            {unauthMsg}
+            <br />
+            <Link to="/">Login</Link>
+          </p>
         </div>
-        <p>{game.summary || "N/A"}</p>
-        <div className="screenshots">
-          <h3>Screenshots</h3>
-          {game.screenshots && game.screenshots.length > 0 ? (
-            game.screenshots.map((screenshot) => (
-              <img
-                key={screenshot.id}
-                src={`https://images.igdb.com/igdb/image/upload/t_screenshot_med_2x/${screenshot.image_id}.jpg`}
-                alt="Screenshot"
-              />
-            ))
-          ) : (
-            <p>No screenshots available</p>
-          )}
-        </div>
-        <div className="platforms">
-          <h3>Platforms</h3>
-          <ul>
-            {game.platforms && game.platforms.length > 0 ? (
-              game.platforms.map((platform) => (
-                <li key={platform.id}>{`Platform ${platform.name}`}</li>
+      ) : (
+        <div className="single-game-card">
+          <div className="game_title">
+            <h2>{game.name || "N/A"}</h2>
+            <button onClick={() => addGameToLibrary()}>add to library</button>
+          </div>
+          <p>{game.summary || "N/A"}</p>
+          <div className="screenshots">
+            <h3>Screenshots</h3>
+            {game.screenshots && game.screenshots.length > 0 ? (
+              game.screenshots.map((screenshot) => (
+                <img
+                  key={screenshot.id}
+                  src={`https://images.igdb.com/igdb/image/upload/t_screenshot_med_2x/${screenshot.image_id}.jpg`}
+                  alt="Screenshot"
+                />
               ))
             ) : (
-              <p>No platforms available yet</p>
+              <p>No screenshots available</p>
             )}
-          </ul>
+          </div>
+          <div className="platforms">
+            <h3>Platforms</h3>
+            <ul>
+              {game.platforms && game.platforms.length > 0 ? (
+                game.platforms.map((platform) => (
+                  <li key={platform.id}>{`Platform ${platform.name}`}</li>
+                ))
+              ) : (
+                <p>No platforms available yet</p>
+              )}
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

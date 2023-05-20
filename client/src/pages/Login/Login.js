@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import image from "./games.png";
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../Context/AuthContext";
 import axios from "axios";
 const Login = () => {
+  const { toggleLoggedIn, loggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
@@ -30,8 +32,8 @@ const Login = () => {
         }
       );
       console.log(res);
-      // set loggedIn to localStorage
-      localStorage.setItem("imjordLoggedIn", true);
+      // set logged in to true
+      toggleLoggedIn();
       // redirect to home page
       navigate("/home");
     } catch (error) {
@@ -42,7 +44,6 @@ const Login = () => {
 
   useEffect(() => {
     // check if user is logged in
-    const loggedIn = localStorage.getItem("imjordLoggedIn");
     if (loggedIn) {
       navigate("/home");
     }

@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const Carousel = (props) => {
   const { games } = props;
-  console.log(games);
   const [currentGameIndex, setCurrentGameIndex] = useState(0);
   const [nextGameIndex, setNextGameIndex] = useState(
     (currentGameIndex + 1) % games.length

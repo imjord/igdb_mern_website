@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./App.css";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "./Context/AuthContext";
 
 // pages
 import Login from "./pages/Login/Login";
@@ -17,15 +18,16 @@ import Search from "./pages/Search/Search";
 import NavBar from "./Components/Navbar/NavBar";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { toggleLoggedIn, loggedIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // check if user is logged in
-    const loggedIn = localStorage.getItem("imjordLoggedIn");
-    if (loggedIn) {
-      setLoggedIn(true);
+    const userLoggedIn = localStorage.getItem("userLoggedIn");
+    if (!userLoggedIn && !loggedIn) {
+      navigate("/home");
     }
-  }, [loggedIn]);
+  }, []);
+
   return (
     <>
       {loggedIn ? <NavBar /> : null}

@@ -6,6 +6,8 @@ import "./Search.css";
 const Search = () => {
   const { name } = useParams();
   const [games, setGames] = useState([]);
+  const [unauthMsg, setUnauthMsg] = useState("");
+  const [randomColors, setRandomColors] = useState([]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(9);
@@ -21,10 +23,21 @@ const Search = () => {
       setGames(res.data);
     } catch (error) {
       console.error(error);
+      setUnauthMsg(error.response.data.message);
     }
   };
 
   useEffect(() => {
+    const generateRandomColors = () => {
+      const colors = currentGames.map(() => {
+        return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+          Math.random() * 256
+        )}, ${Math.floor(Math.random() * 256)})`;
+      });
+      setRandomColors(colors);
+    };
+
+    generateRandomColors();
     getSearchedGames();
   }, [name]);
 
@@ -42,11 +55,21 @@ const Search = () => {
   return (
     <div>
       <div className="search_container">
-        {currentGames.map((game) => (
+        {unauthMsg ? (
+          <div className="error_container">
+            <p className="error">
+              {unauthMsg}
+              <br />
+              <Link to="/">Login</Link>
+            </p>
+          </div>
+        ) : null}
+
+        {currentGames.map((game, index) => (
           <Link to={`/games/${game.id}`}>
             <div className="search_card">
               <h2>{game.name}</h2>
-              <p>poop</p>
+              <p>Click here</p>
               <span></span>
               <div
                 className="pic"
@@ -54,7 +77,7 @@ const Search = () => {
                   backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
                 }}
               ></div>
-              <button></button>
+              <button style={{ backgroundColor: randomColors[index] }}></button>
             </div>
           </Link>
         ))}

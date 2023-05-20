@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import image from "../Login/games.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import "./Register.css";
+import { AuthContext } from "../../Context/AuthContext";
 import axios from "axios";
 const Register = () => {
+  const { toggleLoggedIn, loggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [email, setEmail] = useState("");
@@ -31,8 +33,8 @@ const Register = () => {
         }
       );
       console.log(res);
-      // set loggedIn to localStorage
-      localStorage.setItem("imjordLoggedIn", true);
+      // set logged in to true
+      toggleLoggedIn();
       // redirect to home page
       navigate("/home");
     } catch (error) {
@@ -41,8 +43,6 @@ const Register = () => {
   };
 
   useEffect(() => {
-    // check if user is logged in
-    const loggedIn = localStorage.getItem("imjordLoggedIn");
     if (loggedIn) {
       navigate("/home");
     }

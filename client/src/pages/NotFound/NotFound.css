@@ -1,0 +1,76 @@
+.not-found-animation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-image: url("https://images.unsplash.com/photo-1560260240-c6ef90a163a4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2062&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.animated-text {
+  font-size: 100px;
+  font-weight: bold;
+  color: #ff0000;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animated-subtext {
+  font-size: 24px;
+  margin-top: 20px;
+  color: #ff0000;
+  margin-bottom: 10px;
+  animation: fade 2s infinite;
+}
+
+.home-link {
+  color: #ff0000;
+  font-size: 24px;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.animated-image {
+  width: 200px;
+  height: 200px;
+  background-image: url("https://preview.redd.it/aq38c844r6771.gif?format=png8&s=7188664df4f02c6878da6bd20af5e80e5ea03939");
+  background-size: cover;
+  border-radius: 50%;
+  opacity: 0.8;
+  margin: 20px;
+  animation: rideWave 2s infinite;
+}
+
+@keyframes rideWave {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

@@ -9,7 +9,7 @@ const GenrePage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(9);
   const { id } = useParams();
-
+  const [unauthMsg, setUnauthMsg] = useState("");
   const getGamesByGenre = async () => {
     try {
       const res = await axios.get(
@@ -22,6 +22,7 @@ const GenrePage = () => {
       setGames(res.data);
     } catch (error) {
       console.error(error);
+      setUnauthMsg(error.response.data.message);
     }
   };
 
@@ -42,37 +43,49 @@ const GenrePage = () => {
 
   return (
     <div className="genre-page">
-      <h1>Browse Genres</h1>
-      <div className="search_container">
-        {currentGames.map((game) => (
-          <Link to={`/games/${game.id}`} key={game.id}>
-            <div className="search_card">
-              <h2>{game.name}</h2>
-              <p>Click to view</p>
-              <span></span>
-              <div
-                className="pic"
-                style={{
-                  backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
-                }}
-              ></div>
-              <button></button>
-            </div>
-          </Link>
-        ))}
-      </div>
+      {unauthMsg ? (
+        <div className="error_container">
+          <p className="error">
+            {unauthMsg}
+            <br />
+            <Link to="/">Login</Link>
+          </p>
+        </div>
+      ) : (
+        <div>
+          <h1>Browse Genres</h1>
+          <div className="search_container">
+            {currentGames.map((game) => (
+              <Link to={`/games/${game.id}`} key={game.id}>
+                <div className="search_card">
+                  <h2>{game.name}</h2>
+                  <p>Click to view</p>
+                  <span></span>
+                  <div
+                    className="pic"
+                    style={{
+                      backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
+                    }}
+                  ></div>
+                  <button></button>
+                </div>
+              </Link>
+            ))}
+          </div>
 
-      <div className="pagination">
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => paginate(index + 1)}
-            className={currentPage === index + 1 ? "active" : ""}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
+          <div className="pagination">
+            {Array.from({ length: totalPages }).map((_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => paginate(index + 1)}
+                className={currentPage === index + 1 ? "active" : ""}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -38,6 +38,11 @@ const auth_controller = {
       res.status(500).json({ error: "Server Error" });
     }
   },
+  // logout
+  logout(req, res) {
+    req.session.destroy();
+    res.json({ message: "Logged out!" });
+  },
 };
 
 module.exports = auth_controller;

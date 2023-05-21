@@ -7,7 +7,7 @@ import "./Register.css";
 import { AuthContext } from "../../Context/AuthContext";
 import axios from "axios";
 const Register = () => {
-  const { toggleLoggedIn, loggedIn } = useContext(AuthContext);
+  const { toggleLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [email, setEmail] = useState("");
@@ -42,17 +42,13 @@ const Register = () => {
     }
   };
 
-  useEffect(() => {
-    if (loggedIn) {
-      navigate("/home");
-    }
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="login_container">
       <div className="login_left">
         <div className="left_wrapper">
-          <h2>Imjord Games</h2>
+          <h2> Games</h2>
           <h3>Create Account</h3>
           <form onSubmit={handleSubmit}>
             <div class="input-container">
@@ -96,7 +92,7 @@ const Register = () => {
             <Link to="/">Sign in</Link>
           </div>
           <div className="login_footer">
-            <p>made with &#10084; Imjord</p>
+            <p>made with &#10084; </p>
           </div>
         </div>
       </div>

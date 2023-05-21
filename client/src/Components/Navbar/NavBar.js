@@ -5,7 +5,7 @@ import axios from "axios";
 import { AuthContext } from "../../Context/AuthContext";
 const NavBar = () => {
   const [search, setSearch] = useState("");
-  const { loggedIn, logout } = useContext(AuthContext);
+  const { logout, toggleLoggedIn, navBar, setNavBar } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -15,6 +15,7 @@ const NavBar = () => {
       });
       // set logged in to false
       logout();
+      setNavBar(false);
       // redirect to home page
       navigate("/");
     } catch (err) {
@@ -24,18 +25,9 @@ const NavBar = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Redirect to the search results page with the search query as a parameter
     navigate(`/search/${search}`);
-    // Reset the search input
     setSearch("");
   };
-
-  useEffect(() => {
-    // check if user is logged in
-    if (!loggedIn) {
-      navigate("/");
-    }
-  }, []);
 
   return (
     <nav>

@@ -7,6 +7,8 @@ const Game = () => {
   const [game, setGame] = useState({});
   const { id } = useParams();
   const [unauthMsg, setUnauthMsg] = useState("");
+  const [addError, setAddError] = useState("");
+  const [addSuccess, setAddSuccess] = useState("");
 
   const addGameToLibrary = async () => {
     try {
@@ -20,8 +22,10 @@ const Game = () => {
         { withCredentials: true }
       );
       console.log(res.data);
+      setAddSuccess(res.data.message);
     } catch (error) {
       console.error(error);
+      setAddError(error.response.data.message);
     }
   };
 
@@ -42,6 +46,9 @@ const Game = () => {
     getGame();
   }, [id]);
 
+  if (addSuccess) setTimeout(() => setAddSuccess(""), 3000);
+  if (addError) setTimeout(() => setAddError(""), 3000);
+
   if (typeof game === "undefined" || game === null) {
     return <p>Loading...</p>;
   }
@@ -60,6 +67,8 @@ const Game = () => {
         <div className="single-game-card">
           <div className="game_title">
             <h2>{game.name || "N/A"}</h2>
+            {addSuccess ? <p className="success">{addSuccess}</p> : null}
+            {addError ? <p className="error">{addError}</p> : null}
             <button onClick={() => addGameToLibrary()}>add to library</button>
           </div>
           <p>{game.summary || "N/A"}</p>

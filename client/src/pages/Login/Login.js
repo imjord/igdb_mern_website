@@ -7,7 +7,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../Context/AuthContext";
 import axios from "axios";
 const Login = () => {
-  const { toggleLoggedIn, loggedIn } = useContext(AuthContext);
+  const { toggleLoggedIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
@@ -42,17 +42,12 @@ const Login = () => {
     }
   };
 
-  useEffect(() => {
-    // check if user is logged in
-    if (loggedIn) {
-      navigate("/home");
-    }
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className="login_container">
       <div className="login_left">
         <div className="left_wrapper">
-          <h2>Imjord Games</h2>
+          <h2> Games</h2>
           {error ? <p className="error">{error}</p> : <h3>Sign in</h3>}
           <form onSubmit={handleSubmit}>
             <div className="input-container">
@@ -86,7 +81,7 @@ const Login = () => {
             <Link to="/register">Create account</Link>
           </div>
           <div className="login_footer">
-            <p>made with &#10084; Imjord</p>
+            <p>made with &#10084; </p>
           </div>
         </div>
       </div>

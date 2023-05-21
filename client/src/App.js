@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./App.css";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import { AuthContext } from "./Context/AuthContext";
 
 // pages
@@ -18,19 +24,27 @@ import Search from "./pages/Search/Search";
 import NavBar from "./Components/Navbar/NavBar";
 
 function App() {
-  const { toggleLoggedIn, loggedIn } = useContext(AuthContext);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { toggleLoggedIn, navBar, setNavBar } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    const userLoggedIn = localStorage.getItem("userLoggedIn");
-    if (!userLoggedIn && !loggedIn) {
-      navigate("/home");
+    const loggedIn = localStorage.getItem("userLoggedIn");
+    setIsLoggedIn(!!loggedIn);
+
+    if (loggedIn) {
+      setNavBar(true);
     }
-  }, []);
+  }, [location.pathname]);
+  const shouldShowNavBar =
+    location.pathname !== "/" &&
+    location.pathname !== "/register" &&
+    isLoggedIn;
 
   return (
     <>
-      {loggedIn ? <NavBar /> : null}
+      {shouldShowNavBar && <NavBar />}
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />

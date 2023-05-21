@@ -3,23 +3,22 @@ import { createContext, useState } from "react";
 export const AuthContext = createContext();
 
 const AuthContextProvider = (props) => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [navBar, setNavBar] = useState(true);
 
   const toggleLoggedIn = () => {
-    setLoggedIn(true);
-    const userLoggedIn = localStorage.setItem("userLoggedIn", true);
+    localStorage.setItem("userLoggedIn", true);
   };
   const logout = () => {
-    setLoggedIn(false);
-    const loggedOut = localStorage.setItem("userLoggedIn", false);
+    localStorage.removeItem("userLoggedIn");
   };
 
   return (
     <AuthContext.Provider
       value={{
-        loggedIn,
         toggleLoggedIn,
         logout,
+        setNavBar,
+        navBar,
       }}
     >
       {props.children}

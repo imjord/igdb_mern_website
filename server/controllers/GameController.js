@@ -5,6 +5,8 @@ const game_controller = {
   // get user's game library
   // get single user and populate with their library
   async get_user_library(req, res) {
+    console.log("getMyGames");
+    console.log(req.session.user);
     try {
       const user = await User.findOne({
         username: req.session.user.username,
@@ -56,6 +58,16 @@ const game_controller = {
       console.error(error);
       res.status(500).send("Server error");
     }
+  },
+  // remove game from library
+  async remove_game(req, res) {
+    User.findOneAndUpdate(
+      { username: req.session.user.username },
+      { $pull: { library: req.body._id } },
+      { new: true }
+    )
+      .then((results) => res.json(results))
+      .catch((err) => res.status(422).json(err));
   },
 };
 

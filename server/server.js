@@ -7,7 +7,7 @@ const cors = require("cors");
 const session = require("express-session");
 const corsOptions = {
   origin: "http://localhost:3000",
-  credentials: true, // Enable sending cookies from the frontend
+  credentials: true,
 };
 app.use(cors(corsOptions));
 app.use(express.json());
@@ -15,8 +15,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: false,
+      maxAge: 3600000,
+    },
   })
 );
 app.use("/api", routes);

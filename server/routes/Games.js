@@ -4,7 +4,6 @@ const {
   get_genre,
   get_games_by_genre,
   get_game,
-  get_screenshot,
   search_games_by_name,
 } = require("../controllers/GameApi.js");
 const { auth } = require("../controllers/AuthController.js");

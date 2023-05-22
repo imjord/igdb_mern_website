@@ -3,6 +3,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import "../GenrePage/GenrePage.css";
 
+axios.defaults.withCredentials = true;
+
 const Library = () => {
   const [games, setGames] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,6 +22,21 @@ const Library = () => {
     } catch (error) {
       console.error(error);
       setUnauthMsg(error.response.data.message);
+    }
+  };
+
+  const removeGame = async (gameId) => {
+    try {
+      const res = await axios.delete(
+        "http://localhost:3001/api/users/library",
+        {
+          data: { _id: gameId }, // Pass the game ID in the request body
+          withCredentials: true, // Include this option
+        }
+      );
+      console.log(res.data);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -71,7 +88,7 @@ const Library = () => {
                     <button></button>
                   </div>
                 </Link>
-                <button>Remove</button>
+                <button onClick={() => removeGame(game._id)}>Remove</button>
               </div>
             ))}
           </div>

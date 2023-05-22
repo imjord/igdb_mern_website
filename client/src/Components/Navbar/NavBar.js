@@ -32,7 +32,7 @@ const NavBar = () => {
   return (
     <nav>
       <div className="logo">
-        <h1> Imjord Games</h1>
+        <h1> Games</h1>
       </div>
       <div className="explore_container">
         <ul>

@@ -8,6 +8,7 @@ const GenrePage = () => {
   const [games, setGames] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(9);
+  const [mobileList, setMobileList] = useState(false);
   const { id } = useParams();
   const [unauthMsg, setUnauthMsg] = useState("");
   const getGamesByGenre = async () => {
@@ -28,6 +29,21 @@ const GenrePage = () => {
 
   useEffect(() => {
     getGamesByGenre();
+    const handleResize = () => {
+      if (window.innerWidth <= 1200) {
+        setMobileList(true);
+      } else {
+        setMobileList(false);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [id]);
 
   // Pagination
@@ -53,37 +69,43 @@ const GenrePage = () => {
         </div>
       ) : (
         <div>
-          <h1>Browse Genres</h1>
-          <div className="search_container">
-            {currentGames.map((game) => (
-              <Link to={`/games/${game.id}`} key={game.id}>
-                <div className="search_card">
-                  <h2>{game.name}</h2>
-                  <p>Click to view</p>
-                  <span></span>
-                  <div
-                    className="pic"
-                    style={{
-                      backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
-                    }}
-                  ></div>
-                  <button></button>
-                </div>
-              </Link>
-            ))}
-          </div>
-
-          <div className="pagination">
-            {Array.from({ length: totalPages }).map((_, index) => (
-              <button
-                key={index + 1}
-                onClick={() => paginate(index + 1)}
-                className={currentPage === index + 1 ? "active" : ""}
-              >
-                {index + 1}
-              </button>
-            ))}
-          </div>
+          {mobileList ? (
+            <h1>mobile game list</h1>
+          ) : (
+            <div>
+              {" "}
+              <h1>Browse Genres</h1>
+              <div className="search_container">
+                {currentGames.map((game) => (
+                  <Link to={`/games/${game.id}`} key={game.id}>
+                    <div className="search_card">
+                      <h2>{game.name}</h2>
+                      <p>Click to view</p>
+                      <span></span>
+                      <div
+                        className="pic"
+                        style={{
+                          backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
+                        }}
+                      ></div>
+                      <button></button>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+              <div className="pagination">
+                {Array.from({ length: totalPages }).map((_, index) => (
+                  <button
+                    key={index + 1}
+                    onClick={() => paginate(index + 1)}
+                    className={currentPage === index + 1 ? "active" : ""}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

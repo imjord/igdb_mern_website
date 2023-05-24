@@ -7,8 +7,9 @@ import { Link } from "react-router-dom";
 const TrendingGames = () => {
   const [trendingGames, setTrendingGames] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [hasFetchedData, setHasFetchedData] = useState(false); // New state variable
+  const [hasFetchedData, setHasFetchedData] = useState(false);
   const [unauthMsg, setUnauthMsg] = useState("");
+  const [mobileHome, setMobileHome] = useState(false);
 
   const getTrendingGames = async () => {
     setLoading(true);
@@ -20,7 +21,7 @@ const TrendingGames = () => {
       console.log(res.data);
       setLoading(false);
       setTrendingGames(res.data);
-      setHasFetchedData(true); // Set the flag after fetching the data
+      setHasFetchedData(true);
     } catch (err) {
       console.log(err);
       setUnauthMsg(err.response.data.message);
@@ -28,15 +29,28 @@ const TrendingGames = () => {
   };
 
   useEffect(() => {
-    // Make the initial request only if the data hasn't been fetched before
     if (!hasFetchedData) {
       getTrendingGames();
     }
+    const handleResize = () => {
+      if (window.innerWidth <= 1200) {
+        setMobileHome(true);
+      } else {
+        setMobileHome(false);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [hasFetchedData]);
 
   return (
     <div className="trending">
-      {loading ? <Spinner /> : <h1>Trending Games</h1>}
       {unauthMsg ? (
         <div className="error_container">
           <p className="error">
@@ -45,8 +59,17 @@ const TrendingGames = () => {
             <Link to="/">Login</Link>
           </p>
         </div>
-      ) : null}
-      {trendingGames.length > 0 && <Carousel games={trendingGames} />}
+      ) : (
+        <div>
+          {mobileHome ? (
+            <h1>Mobile Home</h1>
+          ) : (
+            <div>
+              {trendingGames.length > 0 && <Carousel games={trendingGames} />}
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

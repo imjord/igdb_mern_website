@@ -5,8 +5,6 @@ const game_controller = {
   // get user's game library
   // get single user and populate with their library
   async get_user_library(req, res) {
-    console.log("getMyGames");
-    console.log(req.session.user);
     try {
       const user = await User.findOne({
         username: req.session.user.username,

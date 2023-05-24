@@ -22,3 +22,26 @@
   padding: 10px;
   margin: 15px auto;
 }
+
+#browse_link {
+  text-decoration: none;
+  color: black;
+}
+
+@media screen and (max-width: 1200px) {
+  .genre_container {
+    margin-top: 0px;
+  }
+  .genre_wrapper {
+    flex: 0 0 80%;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .genre_container {
+    margin-top: 0px;
+  }
+  .genre_wrapper {
+    flex: 0 0 80%;
+  }
+}

@@ -48,7 +48,7 @@ const Register = () => {
     <div className="login_container">
       <div className="login_left">
         <div className="left_wrapper">
-          <h2> Games</h2>
+          <h2> imjord Games</h2>
           <h3>Create Account</h3>
           <form onSubmit={handleSubmit}>
             <div class="input-container">
@@ -92,7 +92,7 @@ const Register = () => {
             <Link to="/">Sign in</Link>
           </div>
           <div className="login_footer">
-            <p>made with &#10084; </p>
+            <p>made with &#10084; imjord</p>
           </div>
         </div>
       </div>

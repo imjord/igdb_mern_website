@@ -1,11 +1,19 @@
+/* Default styles for desktop */
 nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
-  font-family: "Instrument Sans", sans-serif;
+  padding: 40px;
   font-family: "Roboto", sans-serif;
-  margin-top: 50px;
+}
+
+.hidden_div {
+  display: none;
+}
+
+#title_logo {
+  color: black;
+  text-decoration: none;
 }
 
 .logo {
@@ -15,11 +23,17 @@ nav {
   width: 25%;
 }
 
+.desktop_navbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .explore_container {
   display: flex;
   width: 50%;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 }
 
 #search_input {
@@ -31,19 +45,21 @@ nav {
   margin-right: 15px;
 }
 
+#search_input_mobile {
+  background-color: rgb(131, 126, 126);
+  border: none;
+  color: white;
+  border-radius: 40px;
+  padding: 10px;
+  margin-right: 15px;
+  width: 100%;
+}
+
+#search_input_mobile::placeholder {
+  color: white;
+}
+
 #search_input::placeholder {
-  color: white;
-}
-#myInput::-webkit-input-placeholder {
-  color: white;
-}
-#myInput::-moz-placeholder {
-  color: white;
-}
-#myInput::-ms-input-placeholder {
-  color: white;
-}
-#myInput:-ms-input-placeholder {
   color: white;
 }
 
@@ -90,4 +106,56 @@ nav {
 
 .profile_container ul li:hover {
   cursor: pointer;
+}
+
+.mobile-menu-icon {
+  display: none;
+}
+
+/* mobile styles */
+
+.mobile_navbar {
+  display: none;
+}
+
+@media screen and (max-width: 1200px) {
+  /* put mobile navbar at the bottom */
+  .mobile_icon {
+    font-size: 25px;
+  }
+  .pagination {
+    margin-bottom: 80px;
+  }
+  .desktop_navbar {
+    display: none;
+  }
+  .mobile_navbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f0f0f0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    z-index: 999;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(100%);
+  }
+
+  .mobile_navbar.show {
+    transform: translateY(0);
+  }
+
+  .mobile_navbar ul {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .mobile_navbar li {
+    list-style: none;
+    text-align: center;
+    padding: 5px;
+  }
 }

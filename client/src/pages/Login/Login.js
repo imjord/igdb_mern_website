@@ -47,7 +47,7 @@ const Login = () => {
     <div className="login_container">
       <div className="login_left">
         <div className="left_wrapper">
-          <h2> Games</h2>
+          <h2> imjord Games</h2>
           {error ? <p className="error">{error}</p> : <h3>Sign in</h3>}
           <form onSubmit={handleSubmit}>
             <div className="input-container">
@@ -81,7 +81,7 @@ const Login = () => {
             <Link to="/register">Create account</Link>
           </div>
           <div className="login_footer">
-            <p>made with &#10084; </p>
+            <p>made with &#10084; imjord</p>
           </div>
         </div>
       </div>

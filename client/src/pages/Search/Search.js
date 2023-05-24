@@ -7,8 +7,7 @@ const Search = () => {
   const { name } = useParams();
   const [games, setGames] = useState([]);
   const [unauthMsg, setUnauthMsg] = useState("");
-  const [randomColors, setRandomColors] = useState([]);
-
+  const [mobileSearch, setMobileSearch] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(9);
   const getSearchedGames = async () => {
@@ -28,17 +27,22 @@ const Search = () => {
   };
 
   useEffect(() => {
-    const generateRandomColors = () => {
-      const colors = currentGames.map(() => {
-        return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
-          Math.random() * 256
-        )}, ${Math.floor(Math.random() * 256)})`;
-      });
-      setRandomColors(colors);
+    getSearchedGames();
+    const handleResize = () => {
+      if (window.innerWidth <= 1200) {
+        setMobileSearch(true);
+      } else {
+        setMobileSearch(false);
+      }
     };
 
-    generateRandomColors();
-    getSearchedGames();
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [name]);
 
   // Pagination
@@ -54,46 +58,55 @@ const Search = () => {
 
   return (
     <div>
-      <div className="search_container">
-        {unauthMsg ? (
-          <div className="error_container">
-            <p className="error">
-              {unauthMsg}
-              <br />
-              <Link to="/">Login</Link>
-            </p>
-          </div>
-        ) : null}
+      {unauthMsg ? (
+        <div className="error_container">
+          <p className="error">
+            {unauthMsg}
+            <br />
+            <Link to="/">Login</Link>
+          </p>
+        </div>
+      ) : (
+        <div>
+          {" "}
+          {mobileSearch ? (
+            <h1>Mobile Game Search</h1>
+          ) : (
+            <div>
+              <div className="search_container">
+                {currentGames.map((game, index) => (
+                  <Link to={`/games/${game.id}`}>
+                    <div className="search_card">
+                      <h2>{game.name}</h2>
+                      <p>Click here</p>
+                      <span></span>
+                      <div
+                        className="pic"
+                        style={{
+                          backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
+                        }}
+                      ></div>
+                      <button></button>
+                    </div>
+                  </Link>
+                ))}
 
-        {currentGames.map((game, index) => (
-          <Link to={`/games/${game.id}`}>
-            <div className="search_card">
-              <h2>{game.name}</h2>
-              <p>Click here</p>
-              <span></span>
-              <div
-                className="pic"
-                style={{
-                  backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
-                }}
-              ></div>
-              <button style={{ backgroundColor: randomColors[index] }}></button>
+                <div className="pagination">
+                  {Array.from({ length: totalPages }).map((_, index) => (
+                    <button
+                      key={index + 1}
+                      onClick={() => paginate(index + 1)}
+                      className={currentPage === index + 1 ? "active" : ""}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </div>
+              </div>{" "}
             </div>
-          </Link>
-        ))}
-      </div>
-
-      <div className="pagination">
-        {Array.from({ length: totalPages }).map((_, index) => (
-          <button
-            key={index + 1}
-            onClick={() => paginate(index + 1)}
-            className={currentPage === index + 1 ? "active" : ""}
-          >
-            {index + 1}
-          </button>
-        ))}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

@@ -136,3 +136,38 @@ input:valid + .placeholder {
   width: 100%;
   object-fit: cover;
 }
+
+/* media queries */
+
+@media screen and (max-width: 1200px) {
+  .login_container {
+    flex-direction: column;
+  }
+
+  .login_left {
+    width: 100%;
+  }
+
+  .login_right {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .login_container {
+    flex-direction: column;
+    margin-top: 0px;
+  }
+
+  .left_wrapper {
+    margin-top: 0px;
+  }
+
+  .login_left {
+    width: 100%;
+  }
+
+  .login_right {
+    display: none;
+  }
+}

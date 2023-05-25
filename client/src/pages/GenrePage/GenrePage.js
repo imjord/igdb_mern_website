@@ -13,12 +13,9 @@ const GenrePage = () => {
   const [unauthMsg, setUnauthMsg] = useState("");
   const getGamesByGenre = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3001/api/games/browse/${id}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.get(`/api/games/browse/${id}`, {
+        withCredentials: true,
+      });
       console.log(res.data);
       setGames(res.data);
     } catch (error) {

@@ -1,0 +1,23 @@
+{
+  "name": "igdb_mern_website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
+    "install": "cd server && npm install && cd ../client && npm install",
+    "build": "cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imjord/igdb_mern_website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imjord/igdb_mern_website/issues"
+  },
+  "homepage": "https://github.com/imjord/igdb_mern_website#readme"
+}

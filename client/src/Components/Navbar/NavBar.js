@@ -26,7 +26,7 @@ const NavBar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:3001/api/auth/logout", {
+      await axios.get("/api/auth/logout", {
         withCredentials: true,
       });
       // set logged in to false

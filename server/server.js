@@ -1,10 +1,12 @@
 const express = require("express");
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 const db = require("./config/connection");
 const routes = require("./routes/index");
 const cors = require("cors");
 const session = require("express-session");
+const path = require("path");
+
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
@@ -28,6 +30,10 @@ app.use("/api", routes);
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(500).json({ error: "Server error" });
+});
+app.use(express.static(path.join(__dirname, "../client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
 
 db.once("open", () => {

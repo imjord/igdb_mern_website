@@ -22,7 +22,7 @@ const Register = () => {
   const createAccount = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3001/api/users",
+        "/api/users",
         {
           email,
           username,

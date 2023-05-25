@@ -22,7 +22,7 @@ const Login = () => {
   const login = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3001/api/auth/login",
+        "/api/auth/login",
         {
           username,
           password,

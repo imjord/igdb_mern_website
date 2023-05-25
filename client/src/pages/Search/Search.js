@@ -12,12 +12,9 @@ const Search = () => {
   const [gamesPerPage] = useState(9);
   const getSearchedGames = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3001/api/games/search/${name}`,
-        {
-          withCredentials: true,
-        }
-      );
+      const res = await axios.get(`/api/games/search/${name}`, {
+        withCredentials: true,
+      });
       console.log(res.data);
       setGames(res.data);
     } catch (error) {

@@ -15,7 +15,7 @@ const Library = () => {
 
   const getMyGames = async () => {
     try {
-      const res = await axios.get("http://localhost:3001/api/users/library", {
+      const res = await axios.get("/api/users/library", {
         withCredentials: true,
       });
       console.log(res.data);
@@ -28,13 +28,10 @@ const Library = () => {
 
   const removeGame = async (gameId) => {
     try {
-      const res = await axios.delete(
-        "http://localhost:3001/api/users/library",
-        {
-          data: { _id: gameId }, // Pass the game ID in the request body
-          withCredentials: true, // Include this option
-        }
-      );
+      const res = await axios.delete("/api/users/library", {
+        data: { _id: gameId },
+        withCredentials: true,
+      });
       console.log(res.data);
     } catch (error) {
       console.error(error);

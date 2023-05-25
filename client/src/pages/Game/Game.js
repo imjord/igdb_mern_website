@@ -13,7 +13,7 @@ const Game = () => {
   const addGameToLibrary = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:3001/api/users/library`,
+        `/api/users/library`,
         {
           name: game.name,
           image_id: game.cover.image_id,
@@ -32,7 +32,7 @@ const Game = () => {
   useEffect(() => {
     const getGame = async () => {
       try {
-        const res = await axios.get(`http://localhost:3001/api/games/${id}`, {
+        const res = await axios.get(`/api/games/${id}`, {
           withCredentials: true,
         });
         console.log(res.data);

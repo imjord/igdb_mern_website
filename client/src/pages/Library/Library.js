@@ -86,7 +86,37 @@ const Library = () => {
       ) : (
         <div>
           {mobileLibrary ? (
-            <h1>{user.username}s Mobile Library</h1>
+            <div className="mobile_games_container">
+              <h1>{user.username}s Mobile Library</h1>
+              <div className="mobile_games_wrapper">
+                {currentGames.map((game) => (
+                  <div
+                    className="mobile_link"
+                    to={`/games/${game.id}`}
+                    key={game.id}
+                  >
+                    <div className="mobile_card">
+                      <div
+                        className="mobile_pic"
+                        style={{
+                          backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.image_id}.jpg)`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "contain",
+                          backgroundPosition: "center",
+                        }}
+                      ></div>
+                      <div className="mobile_library_title">
+                        {" "}
+                        <h2>{game.name}</h2>
+                        <button onClick={() => removeGame(game._id)}>
+                          Remove
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           ) : (
             <div>
               {" "}

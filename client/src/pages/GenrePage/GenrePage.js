@@ -70,7 +70,31 @@ const GenrePage = () => {
       ) : (
         <div>
           {mobileList ? (
-            <h1>mobile game list</h1>
+            <div className="mobile_games_container">
+              <h1>mobile game list</h1>
+              <div className="mobile_games_wrapper">
+                {currentGames.map((game) => (
+                  <Link
+                    className="mobile_link"
+                    to={`/games/${game.id}`}
+                    key={game.id}
+                  >
+                    <div className="mobile_card">
+                      <div
+                        className="mobile_pic"
+                        style={{
+                          backgroundImage: `url(https://images.igdb.com/igdb/image/upload/t_cover_big_2x/${game.cover.image_id}.jpg)`,
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "contain",
+                          backgroundPosition: "center",
+                        }}
+                      ></div>
+                      <h2>{game.name}</h2>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
           ) : (
             <div>
               {" "}

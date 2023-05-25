@@ -3,6 +3,7 @@ import axios from "axios";
 import Spinner from "../Spinner/Spinner";
 import Carousel from "../Carousel";
 import { Link } from "react-router-dom";
+import MobileCarousel from "../MobileCarousel";
 
 const TrendingGames = () => {
   const [trendingGames, setTrendingGames] = useState([]);
@@ -62,7 +63,11 @@ const TrendingGames = () => {
       ) : (
         <div>
           {mobileHome ? (
-            <h1>Mobile Home</h1>
+            <div>
+              {trendingGames.length > 0 && (
+                <MobileCarousel games={trendingGames} />
+              )}
+            </div>
           ) : (
             <div>
               {trendingGames.length > 0 && <Carousel games={trendingGames} />}

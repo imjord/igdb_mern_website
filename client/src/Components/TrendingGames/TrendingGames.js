@@ -18,13 +18,11 @@ const TrendingGames = () => {
       const res = await axios.get("/api/games/trending", {
         withCredentials: true,
       });
-      console.log("Trending games:");
-      console.log(res.data);
+
       setLoading(false);
       setTrendingGames(res.data);
       setHasFetchedData(true);
     } catch (err) {
-      console.log(err);
       setUnauthMsg(err.response.data.message);
     }
   };

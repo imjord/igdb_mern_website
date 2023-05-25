@@ -11,7 +11,6 @@ const game_controller = {
       }).populate("library");
       res.json(user);
     } catch (error) {
-      console.log(error);
       res.status(500).send("Server error");
     }
   },

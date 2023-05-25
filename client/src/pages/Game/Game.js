@@ -21,7 +21,7 @@ const Game = () => {
         },
         { withCredentials: true }
       );
-      console.log(res.data);
+
       setAddSuccess(res.data.message);
     } catch (error) {
       console.error(error);
@@ -35,7 +35,7 @@ const Game = () => {
         const res = await axios.get(`/api/games/${id}`, {
           withCredentials: true,
         });
-        console.log(res.data);
+
         setGame(res.data[0] || {});
       } catch (error) {
         console.error(error);

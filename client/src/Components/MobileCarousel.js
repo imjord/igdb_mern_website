@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const MobileCarousel = ({ games }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  console.log(games);
+
   const handleNext = () => {
     setCurrentIndex((prevIndex) => {
       if (prevIndex === games.length - 1) {

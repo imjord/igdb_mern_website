@@ -7,7 +7,6 @@ const user_controller = {
       const users = await User.find();
       res.json(users);
     } catch (error) {
-      console.log(error);
       res.status(500).send("Server error");
     }
   },

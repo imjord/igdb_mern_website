@@ -11,7 +11,7 @@ const Browse = () => {
       const res = await axios.get("/api/games/browse", {
         withCredentials: true,
       });
-      console.log(res.data);
+
       setGenres(res.data);
     } catch (error) {
       console.error(error);

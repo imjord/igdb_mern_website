@@ -18,7 +18,6 @@ const Library = () => {
       const res = await axios.get("/api/users/library", {
         withCredentials: true,
       });
-      console.log(res.data);
       setUser(res.data);
     } catch (error) {
       console.error(error);
@@ -32,7 +31,6 @@ const Library = () => {
         data: { _id: gameId },
         withCredentials: true,
       });
-      console.log(res.data);
     } catch (error) {
       console.error(error);
     }

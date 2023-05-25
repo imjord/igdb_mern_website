@@ -34,9 +34,7 @@ const NavBar = () => {
       setNavBar(false);
       // redirect to home page
       navigate("/");
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   };
 
   const handleSearch = (e) => {

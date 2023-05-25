@@ -15,7 +15,6 @@ const Search = () => {
       const res = await axios.get(`/api/games/search/${name}`, {
         withCredentials: true,
       });
-      console.log(res.data);
       setGames(res.data);
     } catch (error) {
       console.error(error);

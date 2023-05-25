@@ -32,7 +32,6 @@ const Register = () => {
           withCredentials: true,
         }
       );
-      console.log(res);
       // set logged in to true
       toggleLoggedIn();
       // redirect to home page
